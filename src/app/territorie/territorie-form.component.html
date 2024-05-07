@@ -1,0 +1,31 @@
+<div *ngIf="error">
+  Erreur: {{ error }}
+</div>
+
+<div class="col-lg-12">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Formulaire de Territorie</h6>
+        </div>
+        <div class="card-body">
+            <form class="user" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+							<label class="col-sm-3 mb-3 mb-sm-0 ">TerritoryDescription:</label>
+							<input type="text" class="form-control col-9" [(ngModel)]="territorie.territoryDescription" name="territoryDescription" placeholder="TerritoryDescription">
+					</div>
+					<div class="form-group row">
+							<label class="col-sm-3 mb-3 mb-sm-0 ">RegionId:</label>
+							<select [(ngModel)]="territorie.regionId" name="regionId" id="" class="form-control  col-9" >
+								<option value="" disabled selected>Choisissez une option</option>
+								<option value="{{region.regionId}}"  *ngFor="let region of regions" >{{region.regionDescription}}</option>
+							</select>
+						</div>
+
+                <button type="submit" class="btn btn-primary btn-user">
+                       Enregistrer
+                       <i class="fas fa-save"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

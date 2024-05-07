@@ -1,0 +1,85 @@
+<div *ngIf="isLoading">
+  Chargement...
+</div>
+
+<div *ngIf="error">
+  Erreur: {{ error }}
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" *ngIf="regionId">Informations sur #<span>{{regionId}}</span></h6>
+        <h6 class="m-0 font-weight-bold text-primary" *ngIf="!regionId">
+            <i class="fas fa-list"></i>
+            Liste de Region
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <th>RegionId</th>
+				<th>RegionDescription</th>
+                    <th *ngIf="!regionId" >Actions</th>
+                </thead>
+                <tfoot>
+                    <th>RegionId</th>
+				<th>RegionDescription</th>
+                    <th *ngIf="!regionId" >Actions</th>
+                </tfoot>
+                <tbody>
+                    <tr *ngFor="let region of regions">
+                            				<td>{{region.regionId}}</td>
+				<td>{{region.regionDescription}}</td>
+
+                            <td *ngIf="!regionId" >
+                              <button [routerLink]="['/regions', region.regionId]"  class="btn btn-info btn-sm mx-1">
+                                Modifier <i class="fas fa-user-edit"></i>
+                              </button>
+                              <button (click)="deleteRegion(region.regionId!)" class="btn btn-danger btn-sm mx-1">
+                                Supprimer <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </td>
+                          </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12" *ngIf="!regionId">
+                  <div class="row">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-6">
+                      <div class="row">
+                        <button (click)="previousPage()" class="col-1 btn btn-primary">
+                          <i class="fas fa-angle-double-left"></i>
+                        </button>
+                        <form class="col-10">
+                          <div class="row">
+                            <div class="col-6">
+                              Page:
+                              <input type="number" min="1" max="8" value="{{pageNumber}}" class="form-control" disabled>
+                            </div>
+                            <div class="col-6">
+                              Limite:
+                              <input type="number" id="pageSizeInput" min="1" max="8" value="{{pageSize}}" [(ngModel)]="pageSize"
+                                     class="form-control"
+                                     (change)="setPageSize(pageSize)" [ngModelOptions]="{standalone: true}">
+                            </div>
+                          </div>
+                        </form>
+                        <button (click)="nextPage()" class="col-1 btn btn-primary">
+                          <i class="fas fa-angle-double-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                  </div>
+        </div>
+    </div>
+    <div class="card-footer" *ngIf="!regionId" >
+        <button [routerLink]="['/regions/new']" class="btn btn-primary ">
+            Nouveau Region
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
